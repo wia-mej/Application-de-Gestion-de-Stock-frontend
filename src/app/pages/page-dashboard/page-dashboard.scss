@@ -1,0 +1,326 @@
+// Variables de couleurs
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$accent-color: #f093fb;
+$success-color: #4facfe;
+$warning-color: #43e97b;
+$danger-color: #fa709a;
+$dark-color: #2c3e50;
+$light-color: #f8f9fa;
+$white: #ffffff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+@mixin gradient-bg($color1, $color2, $direction: 135deg) {
+  background: linear-gradient($direction, $color1 0%, $color2 100%);
+}
+
+@mixin shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  } @else if $level == 4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
+
+// Animations
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+// Dashboard principal
+.modern-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: $gray-100;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(0,0,0,0.02)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+// Sidebar
+.dashboard-sidebar {
+  width: 280px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 1000;
+  @include transition(transform, 0.3s, ease);
+
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Main content area
+.dashboard-main {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+// Header
+.dashboard-header {
+  background: $white;
+  padding: 1rem 2rem;
+  @include shadow(1);
+  border-bottom: 1px solid $gray-200;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: slideInRight 0.6s ease-out;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+// Content area
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background: $gray-100;
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 0.8s ease-out;
+  }
+}
+
+// Footer
+.dashboard-footer {
+  background: $white;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid $gray-200;
+  @include shadow(1);
+  animation: slideInRight 0.6s ease-out 0.2s both;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .footer-left {
+      span {
+        color: $gray-600;
+        font-size: 0.9rem;
+      }
+    }
+
+    .footer-right {
+      span {
+        color: $gray-600;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Mobile menu toggle
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  width: 50px;
+  height: 50px;
+  background: $primary-color;
+  border: none;
+  border-radius: 50%;
+  color: $white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  @include shadow(2);
+  @include transition();
+
+  &:hover {
+    background: darken($primary-color, 10%);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Mobile overlay
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  @include transition(opacity, 0.3s, ease);
+
+  &.active {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .modern-dashboard {
+    .dashboard-sidebar {
+      &.mobile-open {
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+// Effets de scroll
+.dashboard-content {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $gray-200;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $gray-400;
+    border-radius: 4px;
+    @include transition();
+
+    &:hover {
+      background: $gray-500;
+    }
+  }
+}
+
+// Animation d'entrée pour les éléments
+.dashboard-header,
+.dashboard-content,
+.dashboard-footer {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.dashboard-content {
+  animation-delay: 0.1s;
+}
+
+.dashboard-footer {
+  animation-delay: 0.2s;
+}
+
+// Effets de hover pour les éléments interactifs
+.mobile-menu-toggle:hover {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+// Amélioration de l'accessibilité
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Mode sombre (optionnel)
+@media (prefers-color-scheme: dark) {
+  .modern-dashboard {
+    background: $gray-900;
+  }
+
+  .dashboard-header,
+  .dashboard-footer {
+    background: $gray-800;
+    border-color: $gray-700;
+  }
+
+  .dashboard-content {
+    background: $gray-900;
+  }
+}

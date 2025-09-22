@@ -1,0 +1,65 @@
+<div class="col mb-3">
+  <div class="col-md-12">
+    <div class="col-md-12 p-4">
+      <h2>{{ categoryDto.id ? 'Modifier la catégorie' : 'Nouvelle catégorie' }}</h2>
+    </div>
+
+    <!-- Affichage des erreurs -->
+    <div class="col-md-12" *ngIf="errorMsg.length > 0">
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <li *ngFor="let error of errorMsg">{{ error }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <form>
+        <div class="row p-3">
+          <div class="col-md-6">
+            <label for="code" class="form-label">Code catégorie *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="code"
+              [(ngModel)]="categoryDto.code" 
+              name="code" 
+              placeholder="Code catégorie"
+              [disabled]="isLoading"
+              required>
+          </div>
+          <div class="col-md-6">
+            <label for="designation" class="form-label">Désignation *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="designation"
+              [(ngModel)]="categoryDto.designation" 
+              name="designation" 
+              placeholder="Désignation"
+              [disabled]="isLoading"
+              required>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-12 p-3 text-end">
+    <button 
+      class="btn btn-danger me-3" 
+      (click)="cancel()" 
+      [disabled]="isLoading">
+      <i class="fas fa-ban"></i>&nbsp;
+      Annuler
+    </button>
+    <button 
+      class="btn btn-primary" 
+      (click)="enregistrerCategory()" 
+      [disabled]="isLoading">
+      <i class="fas fa-save" *ngIf="!isLoading"></i>
+      <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+      &nbsp;{{ isLoading ? 'Enregistrement...' : (categoryDto.id ? 'Modifier' : 'Enregistrer') }}
+    </button>
+  </div>
+</div>

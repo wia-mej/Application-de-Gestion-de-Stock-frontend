@@ -1,0 +1,52 @@
+<div class="row m-3">
+
+  <!-- Profil -->
+  <div class="col-md-4 mb-3">
+    <div class="card text-center p-3">
+      <div class="mb-3 mt-3">
+        <img src="assets/product.png" class="rounded-circle" width="200" height="200" alt="Photo de profil"/>
+      </div>
+      <div class="mb-3">
+        <h2>Nom Prenom</h2>
+        <small class="text-muted">Adresse, Ville, 12345</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire changement de mot de passe -->
+  <div class="col-md-7 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="mb-3">
+            <input type="password" class="form-control" name="ancienmotdepasse"
+                   placeholder="Ancien mot de passe" [(ngModel)]="ancienMotDePasse">
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" name="nouveaumotdepasse"
+                   placeholder="Nouveau mot de passe" [(ngModel)]="changerMotDePasseDto.motDePasse">
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" name="confirmmotdepasse"
+                   placeholder="Confirmer mot de passe"  [(ngModel)]="changerMotDePasseDto.confirmMotDePasse">
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-end">
+        <button class="btn btn-danger me-3" (click)="cancel()" [disabled]="isLoading">
+          <i class="fas fa-ban"></i>&nbsp;Annuler
+        </button>
+        <button class="btn btn-primary" (click)="changerMotDePasseUtilisateur()" [disabled]="isLoading">
+          @if (!isLoading) {
+            <i class="fas fa-save"></i>
+          }
+          @if (isLoading) {
+            <i class="fas fa-spinner fa-spin"></i>
+          }
+          &nbsp;{{ isLoading ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,3592 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Gestion de stock REST API",
+    "description": "Documentation pour l'API REST Gestion des stocks",
+    "contact": {
+      "name": "Wiame Jaoui",
+      "url": "https://github.com/wiamjaoui",
+      "email": "wiamejaoui.wj@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "Développement local"
+    },
+    {
+      "url": "https://api-preprod.example.com",
+      "description": "Pré-production"
+    },
+    {
+      "url": "https://api.example.com",
+      "description": "Production"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Fournisseurs",
+      "description": "API pour la gestion des fournisseurs"
+    },
+    {
+      "name": "Ventes",
+      "description": "API pour la gestion des ventes"
+    },
+    {
+      "name": "Mouvements Stock",
+      "description": "API pour la gestion des mouvements de stock"
+    },
+    {
+      "name": "Clients",
+      "description": "API pour la gestion des clients"
+    },
+    {
+      "name": "Commandes Fournisseurs",
+      "description": "API pour la gestion des commandes fournisseurs"
+    },
+    {
+      "name": "Utilisateurs",
+      "description": "API pour la gestion des utilisateurs"
+    },
+    {
+      "name": "Commandes Clients",
+      "description": "API pour la gestion des commandes clients"
+    },
+    {
+      "name": "Categories",
+      "description": "API pour la gestion des catégories"
+    },
+    {
+      "name": "Entreprises",
+      "description": "API pour la gestion des entreprises"
+    }
+  ],
+  "paths": {
+    "/gestiondestock/v1/ventes/create": {
+      "post": {
+        "tags": [
+          "Ventes"
+        ],
+        "summary": "Créer ou modifier une vente",
+        "description": "Cette méthode permet d'enregistrer ou de modifier une vente.",
+        "operationId": "save",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VenteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "La vente a été créée/modifiée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenteDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les données fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenteDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/utilisateurs/update/password": {
+      "post": {
+        "tags": [
+          "Utilisateurs"
+        ],
+        "summary": "Changer le mot de passe d'un utilisateur",
+        "description": "Cette méthode permet de modifier le mot de passe d'un utilisateur via l'objet spécifié.",
+        "operationId": "changerMotDePasse",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangerMotDePasseUtilisateurDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Mot de passe modifié avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Impossible de modifier le mot de passe en raison de données invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/utilisateurs/create": {
+      "post": {
+        "tags": [
+          "Utilisateurs"
+        ],
+        "summary": "Enregistrer ou modifier un utilisateur",
+        "description": "Cette méthode permet d'enregistrer ou de modifier un utilisateur.",
+        "operationId": "save_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UtilisateurDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "L'utilisateur a été créé/modifié avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Données invalides lors de la création ou la modification d'un utilisateur.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/create": {
+      "post": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Enregistrer un produit",
+        "description": "Cette methode permet d'enregistrer ou modifier un produit",
+        "operationId": "save_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProduitDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "L'objet produit créé / modifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "L'objet produit n'est pas valide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mvmStock/sortie": {
+      "post": {
+        "tags": [
+          "Mouvements Stock"
+        ],
+        "summary": "Sortie de stock",
+        "description": "Cette méthode permet d'enregistrer un mouvement de sortie de stock.",
+        "operationId": "sortieStock",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MvmStockDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "La sortie de stock a été enregistrée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mvmStock/entree": {
+      "post": {
+        "tags": [
+          "Mouvements Stock"
+        ],
+        "summary": "Entrée de stock",
+        "description": "Cette méthode permet d'enregistrer un mouvement d'entrée de stock.",
+        "operationId": "entreeStock",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MvmStockDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "L'entrée de stock a été enregistrée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mvmStock/correctionpos": {
+      "post": {
+        "tags": [
+          "Mouvements Stock"
+        ],
+        "summary": "Correction positive de stock",
+        "description": "Cette méthode permet d'enregistrer une correction positive sur le stock.",
+        "operationId": "correctionStockPos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MvmStockDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "La correction positive de stock a été enregistrée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mvmStock/correctionneg": {
+      "post": {
+        "tags": [
+          "Mouvements Stock"
+        ],
+        "summary": "Correction négative de stock",
+        "description": "Cette méthode permet d'enregistrer une correction négative sur le stock.",
+        "operationId": "correctionStockNeg",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MvmStockDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "La correction négative de stock a été enregistrée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MvmStockDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/fournisseurs/create": {
+      "post": {
+        "tags": [
+          "Fournisseurs"
+        ],
+        "summary": "Enregistrer un fournisseur",
+        "description": "Cette méthode permet d'enregistrer ou de modifier un fournisseur.",
+        "operationId": "save_3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FournisseurDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Le fournisseur a été créé/modifié avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/entreprises/create": {
+      "post": {
+        "tags": [
+          "Entreprises"
+        ],
+        "summary": "Enregistrer une entreprise",
+        "description": "Cette méthode permet de créer ou de modifier une entreprise",
+        "operationId": "save_4",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntrepriseDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "L'entreprise a été créée/modifiée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntrepriseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntrepriseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/create": {
+      "post": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Créer une commande fournisseur",
+        "description": "Cette méthode permet de créer ou modifier une commande fournisseur.",
+        "operationId": "save_5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandeFournisseurDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "La commande fournisseur a été créée/modifiée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/create": {
+      "post": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Enregistrer une commande client",
+        "description": "Cette méthode permet d'enregistrer ou de modifier une commande client.",
+        "operationId": "save_6",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandeClientDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "La commande client a été créée / modifiée",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "La commande client n'est pas valide",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/clients/create": {
+      "post": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Enregistrer un client",
+        "description": "Cette méthode permet d'enregistrer ou de modifier un client.",
+        "operationId": "save_7",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "L'objet client a été créé / modifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "L'objet client n'est pas valide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/categories/create": {
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Enregistrer une catégorie",
+        "description": "Cette méthode permet d'enregistrer ou de modifier une catégorie.",
+        "operationId": "save_8",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categorydto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "L'objet category a été créé / modifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorydto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "L'objet category n'est pas valide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorydto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "authentification-controller"
+        ],
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthentificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh-token": {
+      "post": {
+        "tags": [
+          "authentification-controller"
+        ],
+        "operationId": "refreshToken",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/authenticate": {
+      "post": {
+        "tags": [
+          "authentification-controller"
+        ],
+        "operationId": "authenticate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthentificationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthentificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/update/quantite/{idCommande}/{idLigneCommande}/{quantite}": {
+      "patch": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Mettre à jour la quantité d'un produit dans une commande fournisseur",
+        "description": "Cette méthode permet de modifier la quantité d'un produit dans une commande fournisseur.",
+        "operationId": "updateQuantiteCommande",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idLigneCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "quantite",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La quantité a été mise à jour.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/update/produit/{idCommande}/{idLigneCommande}/{idProduit}": {
+      "patch": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Mettre à jour un produit dans une commande fournisseur",
+        "description": "Cette méthode permet de mettre à jour un produit associé à une ligne d'une commande fournisseur.",
+        "operationId": "updateProduit",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idLigneCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'produit a été mis à jour avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/update/fournisseur/{idCommande}/{idFournisseur}": {
+      "patch": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Mettre à jour le fournisseur associé à une commande",
+        "description": "Cette méthode permet de modifier le fournisseur d'une commande fournisseur.",
+        "operationId": "updateFournisseur",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idFournisseur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le fournisseur a été mis à jour avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/update/etat/{idCommande}/{etatCommande}": {
+      "patch": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Mettre à jour l'état d'une commande fournisseur",
+        "description": "Cette méthode permet de mettre à jour l'état d'une commande fournisseur.",
+        "operationId": "updateEtatCommande",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "etatCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "EN_PREPARATION",
+                "VALIDEE",
+                "LIVREE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'état de la commande a été mis à jour avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides ou la commande est déjà livrée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/update/quantite/{idCommande}/{idLigneCommande}/{quantite}": {
+      "patch": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Modifier la quantité d'une ligne de commande",
+        "description": "Cette méthode permet de modifier la quantité d'une ligne d'une commande client.",
+        "operationId": "updateQuantiteCommande_1",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idLigneCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "quantite",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La quantité de la ligne commande a été modifiée avec succès",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/update/produit/{idCommande}/{idLigneCommande}/{idProduit}": {
+      "patch": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Modifier l'produit associé à une ligne commande",
+        "description": "Cette méthode permet de modifier un produit associé à une ligne d'une commande client.",
+        "operationId": "updateProduit_1",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idLigneCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'produit de la commande a été modifié avec succès",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/update/etat/{idCommande}/{etatCommande}": {
+      "patch": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Modifier l'état d'une commande",
+        "description": "Cette méthode permet de modifier l'état d'une commande client.",
+        "operationId": "updateEtatCommande_1",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "etatCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "EN_PREPARATION",
+                "VALIDEE",
+                "LIVREE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'état de la commande a été modifié avec succès",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "La commande ou l'état fourni est invalide",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/update/client/{idCommande}/{idClient}": {
+      "patch": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Modifier le client associé à une commande",
+        "description": "Cette méthode permet de modifier le client associé à une commande client.",
+        "operationId": "updateClient",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idClient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le client de la commande a été modifié avec succès",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/ventes/{idVente}": {
+      "get": {
+        "tags": [
+          "Ventes"
+        ],
+        "summary": "Rechercher une vente par ID",
+        "description": "Cette méthode permet de rechercher une vente en utilisant son ID.",
+        "operationId": "findById",
+        "parameters": [
+          {
+            "name": "idVente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La vente a été trouvée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenteDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune vente trouvée pour l'ID fourni.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenteDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/ventes/code/{codeVente}": {
+      "get": {
+        "tags": [
+          "Ventes"
+        ],
+        "summary": "Rechercher une vente par Code",
+        "description": "Cette méthode permet de rechercher une vente en utilisant son code.",
+        "operationId": "findByCode",
+        "parameters": [
+          {
+            "name": "codeVente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La vente a été trouvée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenteDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune vente trouvée pour le code fourni.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VenteDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/ventes/all": {
+      "get": {
+        "tags": [
+          "Ventes"
+        ],
+        "summary": "Lister toutes les ventes",
+        "description": "Cette méthode permet de récupérer toutes les ventes enregistrées.",
+        "operationId": "findAll",
+        "responses": {
+          "200": {
+            "description": "La liste des ventes a été renvoyée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VenteDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Aucune vente disponible dans la base de données.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VenteDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/utilisateurs/{idUtilisateur}": {
+      "get": {
+        "tags": [
+          "Utilisateurs"
+        ],
+        "summary": "Rechercher un utilisateur par ID",
+        "description": "Cette méthode permet de récupérer un utilisateur en fonction de son ID.",
+        "operationId": "findById_1",
+        "parameters": [
+          {
+            "name": "idUtilisateur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur trouvé avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun utilisateur trouvé pour l'ID donné.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/utilisateurs/find/{email}": {
+      "get": {
+        "tags": [
+          "Utilisateurs"
+        ],
+        "summary": "Rechercher un utilisateur par email",
+        "description": "Cette méthode permet de récupérer un utilisateur à partir de son email.",
+        "operationId": "findByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur trouvé avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun utilisateur trouvé pour l'email donné.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilisateurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/utilisateurs/all": {
+      "get": {
+        "tags": [
+          "Utilisateurs"
+        ],
+        "summary": "Afficher tous les utilisateurs",
+        "description": "Cette méthode retourne la liste de tous les utilisateurs présents dans la base de données.",
+        "operationId": "findAll_1",
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs renvoyée avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UtilisateurDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Aucun utilisateur trouvé dans la base de données.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UtilisateurDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/{idProduit}": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Rechercher un produit par ID",
+        "description": "Cette méthode permet de chercher un produit par son ID",
+        "operationId": "findById_2",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le produit a été trouvé dans la BDD",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun produit n'existe dans la BDD avec l'ID fourni",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/historique/vente/{idProduit}": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Historique des ventes d'un produit",
+        "description": "Cette méthode permet de récupérer l'historique des ventes d'un produit",
+        "operationId": "findHistoriqueVentes",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneVenteDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/historique/commandefournisseur/{idProduit}": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Historique des commandes fournisseur d'un produit",
+        "description": "Cette méthode permet de récupérer l'historique des commandes fournisseur d'un produit",
+        "operationId": "findHistoriqueCommandeFournisseur",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneCommandeFournisseurDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/historique/commandeclient/{idProduit}": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Historique des commandes client d'un produit",
+        "description": "Cette méthode permet de récupérer l'historique des commandes client d'un produit",
+        "operationId": "findHistoriqueCommandeClient",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneCommandeClientDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/filter/{codeProduit}": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Rechercher un produit par CODE",
+        "description": "Cette méthode permet de chercher un produit par son CODE",
+        "operationId": "findByCodeProduit",
+        "parameters": [
+          {
+            "name": "codeProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le produit a été trouvé dans la BDD",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun produit n'existe dans la BDD avec le CODE fourni",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/filter/category/{idCategory}": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Liste des produits par catégorie",
+        "description": "Cette méthode permet de récupérer tous les produits liés à une catégorie donnée",
+        "operationId": "findAllProduitByIdCategory",
+        "parameters": [
+          {
+            "name": "idCategory",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProduitDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/all": {
+      "get": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Renvoie la liste des produits",
+        "description": "Cette méthode permet de chercher et renvoyer la liste des produits qui existent dans la BDD",
+        "operationId": "findAll_2",
+        "responses": {
+          "200": {
+            "description": "La liste des produits (ou une liste vide)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mvmStock/stockreel/{idProduit}": {
+      "get": {
+        "tags": [
+          "Mouvements Stock"
+        ],
+        "summary": "Stock Réel",
+        "description": "Cette méthode permet de récupérer le stock réel d'un article donné.",
+        "operationId": "stockReelProduit",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le stock réel de l'article.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun stock trouvé pour l'article fourni.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mvmStock/filter/article/{idProduit}": {
+      "get": {
+        "tags": [
+          "Mouvements Stock"
+        ],
+        "summary": "Historique des mouvements d'un article",
+        "description": "Cette méthode permet de récupérer les mouvements de stock pour un article donné.",
+        "operationId": "mvtStkProduit",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des mouvements de stock de l'article.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MvmStockDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun mouvement trouvé pour l'article fourni.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MvmStockDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/fournisseurs/{idFournisseur}": {
+      "get": {
+        "tags": [
+          "Fournisseurs"
+        ],
+        "summary": "Rechercher un fournisseur par ID",
+        "description": "Cette méthode permet de rechercher un fournisseur grâce à son ID.",
+        "operationId": "findById_3",
+        "parameters": [
+          {
+            "name": "idFournisseur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le fournisseur a été trouvé.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FournisseurDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun fournisseur avec cet ID n'a été trouvé.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/fournisseurs/all": {
+      "get": {
+        "tags": [
+          "Fournisseurs"
+        ],
+        "summary": "Lister tous les fournisseurs",
+        "description": "Cette méthode permet de lister tous les fournisseurs enregistrés dans la base de données.",
+        "operationId": "findAll_3",
+        "responses": {
+          "200": {
+            "description": "La liste des fournisseurs.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FournisseurDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Aucun fournisseur trouvé.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FournisseurDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/entreprises/{idEntreprise}": {
+      "get": {
+        "tags": [
+          "Entreprises"
+        ],
+        "summary": "Rechercher une entreprise par ID",
+        "description": "Cette méthode permet de rechercher une entreprise grâce à son ID",
+        "operationId": "findById_4",
+        "parameters": [
+          {
+            "name": "idEntreprise",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'entreprise a été trouvée dans la base de données.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntrepriseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune entreprise avec cet ID n'a été trouvée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntrepriseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/entreprises/all": {
+      "get": {
+        "tags": [
+          "Entreprises"
+        ],
+        "summary": "Lister toutes les entreprises",
+        "description": "Cette méthode permet de renvoyer la liste de toutes les entreprises enregistrées dans la base de données",
+        "operationId": "findAll_4",
+        "responses": {
+          "200": {
+            "description": "La liste des entreprises.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntrepriseDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Aucune entreprise trouvée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntrepriseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/{idCommandeFournisseur}": {
+      "get": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Rechercher une commande fournisseur par ID",
+        "description": "Cette méthode permet de rechercher une commande fournisseur en fonction de son ID.",
+        "operationId": "findById_5",
+        "parameters": [
+          {
+            "name": "idCommandeFournisseur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La commande fournisseur a été trouvée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune commande fournisseur trouvée avec cet ID.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/lignesCommande/{idCommande}": {
+      "get": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Lister les lignes d'une commande fournisseur",
+        "description": "Cette méthode permet de lister toutes les lignes d'une commande fournisseur donnée.",
+        "operationId": "findAllLignesCommandesFournisseurByCommandeFournisseurId",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La liste des lignes de commande fournisseur a été trouvée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneCommandeFournisseurDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune commande fournisseur trouvée avec cet ID.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneCommandeFournisseurDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/filter/{codeCommandeFournisseur}": {
+      "get": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Rechercher une commande fournisseur par code",
+        "description": "Cette méthode permet de rechercher une commande fournisseur en fonction de son code.",
+        "operationId": "findByCode_1",
+        "parameters": [
+          {
+            "name": "codeCommandeFournisseur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La commande fournisseur a été trouvée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune commande fournisseur trouvée avec ce code.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/all": {
+      "get": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Lister toutes les commandes des fournisseurs",
+        "description": "Cette méthode permet de lister toutes les commandes des fournisseurs.",
+        "operationId": "findAll_5",
+        "responses": {
+          "200": {
+            "description": "La liste des commandes des fournisseurs a été trouvée.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommandeFournisseurDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Aucune commande fournisseur à retourner.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommandeFournisseurDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/{idCommandeClient}": {
+      "get": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Rechercher une commande client par ID",
+        "description": "Cette méthode permet de récupérer une commande client par son ID.",
+        "operationId": "findById_6",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "La commande client a été trouvée",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune commande trouvée avec l'ID fourni",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/lignesCommande/{idCommande}": {
+      "get": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Retourner les lignes de commande client pour un ID commande",
+        "description": "Cette méthode permet de retourner les lignes de commande client associées à une commande donnée.",
+        "operationId": "findAllLignesCommandesClientByCommandeClientId",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Les lignes de la commande client ont été trouvées",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneCommandeClientDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune commande client trouvée avec l'ID fourni",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LigneCommandeClientDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/filter/{codeCommandeClient}": {
+      "get": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Rechercher une commande client par CODE",
+        "description": "Cette méthode permet de récupérer une commande client par son CODE.",
+        "operationId": "findByCode_2",
+        "parameters": [
+          {
+            "name": "codeCommandeClient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La commande client a été trouvée",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune commande trouvée avec le CODE fourni",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/all": {
+      "get": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Retourner la liste des commandes clients",
+        "description": "Cette méthode permet de retourner la liste de toutes les commandes clients.",
+        "operationId": "findAll_6",
+        "responses": {
+          "200": {
+            "description": "La liste des commandes a été trouvée",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommandeClientDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Aucune commande client à retourner",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommandeClientDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/clients/{idClient}": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Rechercher un client par ID",
+        "description": "Cette méthode permet de chercher un client par son ID.",
+        "operationId": "findById_7",
+        "parameters": [
+          {
+            "name": "idClient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le client a été trouvé dans la BDD",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucun client n'existe dans la BDD avec l'ID fourni",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/clients/all": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Renvoi la liste des clients",
+        "description": "Cette méthode permet de chercher et renvoyer la liste des clients présents dans la BDD.",
+        "operationId": "findAll_7",
+        "responses": {
+          "200": {
+            "description": "La liste des clients / une liste vide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/categories/{idCategory}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Rechercher une catégorie par ID",
+        "description": "Cette méthode permet de chercher une catégorie par son ID.",
+        "operationId": "findById_8",
+        "parameters": [
+          {
+            "name": "idCategory",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La catégorie a été trouvée dans la BDD",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorydto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune catégorie n'existe dans la BDD avec l'ID fourni",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorydto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/categories/filter/{codeCategory}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Rechercher une catégorie par CODE",
+        "description": "Cette méthode permet de chercher une catégorie par son CODE.",
+        "operationId": "findByCode_3",
+        "parameters": [
+          {
+            "name": "codeCategory",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La catégorie a été trouvée dans la BDD",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorydto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aucune catégorie n'existe dans la BDD avec le CODE fourni",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorydto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/categories/all": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Renvoi de la liste des catégories",
+        "description": "Cette méthode permet de chercher et renvoyer la liste des catégories présentes dans la BDD.",
+        "operationId": "findAll_8",
+        "responses": {
+          "200": {
+            "description": "La liste des catégories / une liste vide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Categorydto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/users": {
+      "get": {
+        "tags": [
+          "authentification-controller"
+        ],
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Utilisateur"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/profile": {
+      "get": {
+        "tags": [
+          "authentification-controller"
+        ],
+        "operationId": "getUserProfile",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/ventes/delete/{idVente}": {
+      "delete": {
+        "tags": [
+          "Ventes"
+        ],
+        "summary": "Supprimer une vente",
+        "description": "Cette méthode permet de supprimer une vente en fournissant son ID.",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "idVente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La vente a été supprimée avec succès."
+          },
+          "400": {
+            "description": "La vente ne peut pas être supprimée en raison de contraintes liées à d'autres entités."
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/utilisateurs/delete/{idUtilisateur}": {
+      "delete": {
+        "tags": [
+          "Utilisateurs"
+        ],
+        "summary": "Supprimer un utilisateur par ID",
+        "description": "Cette méthode supprime un utilisateur basé sur l'ID fourni.",
+        "operationId": "delete_1",
+        "parameters": [
+          {
+            "name": "idUtilisateur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur supprimé avec succès."
+          },
+          "400": {
+            "description": "Impossible de supprimer l'utilisateur en raison de contraintes liées à d'autres entités."
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/produits/delete/{idProduit}": {
+      "delete": {
+        "tags": [
+          "Produits"
+        ],
+        "summary": "Supprimer un produit",
+        "description": "Cette méthode permet de supprimer un produit par ID",
+        "operationId": "delete_2",
+        "parameters": [
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le produit a été supprimé"
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/fournisseurs/delete/{idFournisseur}": {
+      "delete": {
+        "tags": [
+          "Fournisseurs"
+        ],
+        "summary": "Supprimer un fournisseur",
+        "description": "Cette méthode permet de supprimer un fournisseur par son ID.",
+        "operationId": "delete_3",
+        "parameters": [
+          {
+            "name": "idFournisseur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le fournisseur a été supprimé avec succès."
+          },
+          "400": {
+            "description": "Le fournisseur ne peut pas être supprimé car il est utilisé."
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/entreprises/delete/{idEntreprise}": {
+      "delete": {
+        "tags": [
+          "Entreprises"
+        ],
+        "summary": "Supprimer une entreprise",
+        "description": "Cette méthode permet de supprimer une entreprise par son ID",
+        "operationId": "delete_4",
+        "parameters": [
+          {
+            "name": "idEntreprise",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'entreprise a été supprimée avec succès."
+          },
+          "400": {
+            "description": "L'entreprise ne peut pas être supprimée car elle est liée à d'autres entités."
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/delete/{idCommandeFournisseur}": {
+      "delete": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Supprimer une commande fournisseur",
+        "description": "Cette méthode permet de supprimer une commande fournisseur donnée.",
+        "operationId": "delete_5",
+        "parameters": [
+          {
+            "name": "idCommandeFournisseur",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La commande fournisseur a été supprimée avec succès."
+          },
+          "400": {
+            "description": "La commande fournisseur ne peut pas être supprimée."
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/delete/produit/{idCommande}/{idLigneCommande}": {
+      "delete": {
+        "tags": [
+          "Commandes Fournisseurs"
+        ],
+        "summary": "Supprimer un produit d'une commande fournisseur",
+        "description": "Cette méthode permet de supprimer un produit d'une commande fournisseur donnée.",
+        "operationId": "deleteProduit",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idLigneCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "L'produit a été supprimé avec succès.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeFournisseurDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/delete/{idCommandeClient}": {
+      "delete": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Supprimer une commande client",
+        "description": "Cette méthode permet de supprimer une commande client donnée.",
+        "operationId": "delete_6",
+        "parameters": [
+          {
+            "name": "idCommandeClient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La commande client a été supprimée avec succès"
+          },
+          "400": {
+            "description": "La commande client ne peut pas être supprimée car elle est utilisée"
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesclients/delete/produit/{idCommande}/{idLigneCommande}": {
+      "delete": {
+        "tags": [
+          "Commandes Clients"
+        ],
+        "summary": "Supprimer une ligne d'produit d'une commande",
+        "description": "Cette méthode permet de supprimer une ligne d'produit associée à une commande client.",
+        "operationId": "deleteProduit_1",
+        "parameters": [
+          {
+            "name": "idCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "idLigneCommande",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La ligne de l'produit a été supprimée avec succès",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Les informations fournies sont invalides",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandeClientDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/clients/delete/{idClient}": {
+      "delete": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Supprimer un client",
+        "description": "Cette méthode permet de supprimer un client par son ID.",
+        "operationId": "delete_7",
+        "parameters": [
+          {
+            "name": "idClient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Le client a été supprimé avec succès"
+          },
+          "400": {
+            "description": "Le client ne peut pas être supprimé car il est lié à d'autres entités"
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/categories/delete/{idCategory}": {
+      "delete": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Supprimer une catégorie",
+        "description": "Cette méthode permet de supprimer une catégorie par son ID.",
+        "operationId": "delete_8",
+        "parameters": [
+          {
+            "name": "idCategory",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "La catégorie a été supprimée avec succès"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Categorydto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "designation": {
+            "type": "string"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "LigneVenteDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vente": {
+            "$ref": "#/components/schemas/VenteDto"
+          },
+          "produit": {
+            "$ref": "#/components/schemas/ProduitDto"
+          },
+          "quantite": {
+            "type": "number"
+          },
+          "prixUnitaire": {
+            "type": "number"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ProduitDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "codeProduit": {
+            "type": "string"
+          },
+          "designation": {
+            "type": "string"
+          },
+          "prixUnitaire": {
+            "type": "number"
+          },
+          "tauxTva": {
+            "type": "number"
+          },
+          "prixTTC": {
+            "type": "number"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Categorydto"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "VenteDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "dateVente": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "commentaire": {
+            "type": "string"
+          },
+          "ligneVentes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LigneVenteDto"
+            }
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ChangerMotDePasseUtilisateurDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "motDePasse": {
+            "type": "string"
+          },
+          "confirmMotDePasse": {
+            "type": "string"
+          }
+        }
+      },
+      "AdresseDto": {
+        "type": "object",
+        "properties": {
+          "adresse1": {
+            "type": "string"
+          },
+          "adresse2": {
+            "type": "string"
+          },
+          "ville": {
+            "type": "string"
+          },
+          "codePostale": {
+            "type": "string"
+          }
+        }
+      },
+      "EntrepriseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "adresse": {
+            "$ref": "#/components/schemas/AdresseDto"
+          },
+          "codeFiscal": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "siteWeb": {
+            "type": "string"
+          },
+          "utilisateurs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UtilisateurDto"
+            }
+          }
+        }
+      },
+      "RolesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roleNom": {
+            "type": "string"
+          }
+        }
+      },
+      "UtilisateurDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prenom": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "dateDeNaissance": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "moteDePasse": {
+            "type": "string"
+          },
+          "adresse": {
+            "$ref": "#/components/schemas/AdresseDto"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "entreprise": {
+            "$ref": "#/components/schemas/EntrepriseDto"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RolesDto"
+            }
+          }
+        }
+      },
+      "MvmStockDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dateMvt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "quantite": {
+            "type": "number"
+          },
+          "produit": {
+            "$ref": "#/components/schemas/ProduitDto"
+          },
+          "typeMvt": {
+            "type": "string",
+            "enum": [
+              "ENTREE",
+              "SORTIE",
+              "CORRECTION_POS",
+              "CORRECTION_NEG"
+            ]
+          },
+          "sourceMvt": {
+            "type": "string",
+            "enum": [
+              "COMMANDE_CLIENT",
+              "COMMANDE_FOURNISSEUR",
+              "VENTE"
+            ]
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "FournisseurDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prenom": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "adresse": {
+            "$ref": "#/components/schemas/AdresseDto"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CommandeFournisseurDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "dateCommande": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "etatCommande": {
+            "type": "string",
+            "enum": [
+              "EN_PREPARATION",
+              "VALIDEE",
+              "LIVREE"
+            ]
+          },
+          "fournisseur": {
+            "$ref": "#/components/schemas/FournisseurDto"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ligneCommandeFournisseurs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LigneCommandeFournisseurDto"
+            }
+          },
+          "commandeLivree": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LigneCommandeFournisseurDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "produit": {
+            "$ref": "#/components/schemas/ProduitDto"
+          },
+          "commandeFournisseur": {
+            "$ref": "#/components/schemas/CommandeFournisseurDto"
+          },
+          "quantite": {
+            "type": "number"
+          },
+          "prixUnitaire": {
+            "type": "number"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ClientDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prenom": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "adresse": {
+            "$ref": "#/components/schemas/AdresseDto"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CommandeClientDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          },
+          "dateCommande": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "etatCommande": {
+            "type": "string",
+            "enum": [
+              "EN_PREPARATION",
+              "VALIDEE",
+              "LIVREE"
+            ]
+          },
+          "client": {
+            "$ref": "#/components/schemas/ClientDto"
+          },
+          "idEntreprise": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ligneCommandeClients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LigneCommandeClientDto"
+            }
+          },
+          "commandeLivree": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LigneCommandeClientDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "produit": {
+            "$ref": "#/components/schemas/ProduitDto"
+          },
+          "commandeClient": {
+            "$ref": "#/components/schemas/CommandeClientDto"
+          },
+          "quantite": {
+            "type": "number"
+          },
+          "prixUnitaire": {
+            "type": "number",
+            "format": "double"
+          },
+          "identreprise": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "roleName": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthentificationResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthentificationRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Adresse": {
+        "type": "object",
+        "properties": {
+          "adresse1": {
+            "type": "string"
+          },
+          "adresse2": {
+            "type": "string"
+          },
+          "ville": {
+            "type": "string"
+          },
+          "codePostale": {
+            "type": "string"
+          }
+        }
+      },
+      "Entreprise": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "adresse": {
+            "$ref": "#/components/schemas/Adresse"
+          },
+          "codeFiscal": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "siteWeb": {
+            "type": "string"
+          },
+          "utilisateurs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Utilisateur"
+            }
+          }
+        }
+      },
+      "GrantedAuthority": {
+        "type": "object",
+        "properties": {
+          "authority": {
+            "type": "string"
+          }
+        }
+      },
+      "Roles": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "roleNom": {
+            "type": "string"
+          },
+          "utilisateur": {
+            "$ref": "#/components/schemas/Utilisateur"
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "PRODUIT_READ",
+                "PRODUIT_UPDATE",
+                "PRODUIT_CREATE",
+                "PRODUIT_DELETE",
+                "CLIENT_READ",
+                "CLIENT_UPDATE",
+                "CLIENT_CREATE",
+                "CLIENT_DELETE",
+                "COMMANDE_READ",
+                "COMMANDE_UPDATE",
+                "COMMANDE_CREATE",
+                "COMMANDE_DELETE",
+                "FOURNISSEUR_READ",
+                "FOURNISSEUR_UPDATE",
+                "FOURNISSEUR_CREATE",
+                "FOURNISSEUR_DELETE",
+                "UTILISATEUR_READ",
+                "UTILISATEUR_UPDATE",
+                "UTILISATEUR_CREATE",
+                "UTILISATEUR_DELETE"
+              ]
+            }
+          }
+        }
+      },
+      "Utilisateur": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prenom": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "dateDeNaissance": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "moteDePasse": {
+            "type": "string"
+          },
+          "adresse": {
+            "$ref": "#/components/schemas/Adresse"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "entreprise": {
+            "$ref": "#/components/schemas/Entreprise"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Roles"
+            }
+          },
+          "password": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "username": {
+            "type": "string"
+          },
+          "authorities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GrantedAuthority"
+            }
+          },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserProfileResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prenom": {
+            "type": "string"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Roles"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

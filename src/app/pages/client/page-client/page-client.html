@@ -1,0 +1,75 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Liste des clients</h1>
+    </div>
+    <div class="col-md-4 text-end">
+      <app-boutton-action
+        (clickEvent)="nouveauClient()">
+      </app-boutton-action>
+    </div>
+  </div>
+
+  <!-- Affichage des erreurs -->
+  @if (errorMsg) {
+    <div class="row m-3">
+      <div class="col-12 alert alert-danger">
+        {{ errorMsg }}
+      </div>
+    </div>
+  }
+
+  <!-- Liste des clients -->
+  <div class="col m-3">
+    @for (client of listClient; track trackByClientId($index, client)) {
+      <div class="row custom-border mb-3 p-3">
+        <div class="col-md-2">
+          <img [src]="client.photo || 'assets/user.png'" 
+               class="img-thumbnail" 
+               style="width: 80px; height: 80px; object-fit: cover;"
+               alt="Photo client">
+        </div>
+        <div class="col-md-3">
+          <h6 class="mb-1">{{ client.nom }} {{ client.prenom }}</h6>
+          <small class="text-muted">Client</small>
+        </div>
+        <div class="col-md-3">
+          <p class="mb-1">{{ client.email }}</p>
+          <small class="text-muted">Email</small>
+        </div>
+        <div class="col-md-2">
+          <p class="mb-1">{{ client.telephone }}</p>
+          <small class="text-muted">Téléphone</small>
+        </div>
+        <div class="col-md-2">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-sm btn-outline-primary" 
+                    (click)="modifierClient(client.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger" 
+                    (click)="supprimerClient(client.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Message si aucun client -->
+    @if (listClient.length === 0) {
+      <div class="row">
+        <div class="col-12 text-center p-4">
+          <p class="text-muted">Aucun client trouvé</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Pagination -->
+  <div class="row mb-3">
+    <div class="col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,535 @@
+// Variables de couleurs
+$primary-color: #4e73df;
+$success-color: #1cc88a;
+$warning-color: #f6c23e;
+$danger-color: #e74a3b;
+$info-color: #36b9cc;
+$dark-color: #5a5c69;
+$light-color: #f8f9fc;
+
+// Mixins
+@mixin card-shadow {
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+@mixin gradient-bg($color1, $color2) {
+  background: linear-gradient(135deg, $color1 0%, $color2 100%);
+}
+
+@mixin floating-animation($duration: 3s) {
+  animation: floating $duration ease-in-out infinite;
+}
+
+// Animations
+@keyframes floating {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+// Container principal
+.dashboard-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+// Header avec animation
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+
+  .header-content {
+    position: relative;
+    z-index: 3;
+  }
+
+  .dashboard-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    animation: slideInUp 1s ease-out;
+
+    .title-icon {
+      display: inline-block;
+      margin-right: 1rem;
+      font-size: 3.5rem;
+      animation: floating 2s ease-in-out infinite;
+    }
+
+    .title-text {
+      display: inline-block;
+      position: relative;
+    }
+
+    .title-underline {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+      border-radius: 2px;
+      animation: slideInUp 1s ease-out 0.5s both;
+    }
+  }
+
+  .dashboard-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+    animation: slideInUp 1s ease-out 0.3s both;
+  }
+
+  .header-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    .floating-shapes {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        animation: floating 4s ease-in-out infinite;
+
+        &.shape-1 {
+          width: 60px;
+          height: 60px;
+          top: 20%;
+          left: 10%;
+          animation-delay: 0s;
+        }
+
+        &.shape-2 {
+          width: 40px;
+          height: 40px;
+          top: 60%;
+          right: 15%;
+          animation-delay: 1s;
+        }
+
+        &.shape-3 {
+          width: 80px;
+          height: 80px;
+          top: 30%;
+          right: 20%;
+          animation-delay: 2s;
+        }
+      }
+    }
+  }
+}
+
+// Grille des métriques
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+
+  .metric-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    @include card-shadow;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: slideInUp 0.8s ease-out;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.25);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4e73df, #1cc88a);
+    }
+
+    .metric-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: white;
+
+      i {
+        animation: pulse 2s ease-in-out infinite;
+      }
+    }
+
+    .metric-content {
+      .metric-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: $dark-color;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+      }
+
+      .metric-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .metric-change {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        font-weight: 600;
+
+        i {
+          margin-right: 0.5rem;
+        }
+
+        &.positive {
+          color: $success-color;
+        }
+
+        &.negative {
+          color: $danger-color;
+        }
+      }
+    }
+
+    // Couleurs spécifiques pour chaque carte
+    &:nth-child(1) .metric-icon {
+      @include gradient-bg(#4e73df, #667eea);
+    }
+
+    &:nth-child(2) .metric-icon {
+      @include gradient-bg(#1cc88a, #36b9cc);
+    }
+
+    &:nth-child(3) .metric-icon {
+      @include gradient-bg(#f6c23e, #f39c12);
+    }
+
+    &:nth-child(4) .metric-icon {
+      @include gradient-bg(#e74a3b, #c0392b);
+    }
+  }
+}
+
+// Section des graphiques
+.charts-section {
+  position: relative;
+  z-index: 2;
+
+  .chart-card {
+    background: white;
+    border-radius: 20px;
+    @include card-shadow;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: slideInUp 0.8s ease-out;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.25);
+    }
+
+    &.full-width {
+      margin-top: 2rem;
+    }
+
+    .chart-header {
+      padding: 1.5rem 2rem 1rem;
+      border-bottom: 1px solid #e3e6f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .chart-title {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        i {
+          font-size: 1.5rem;
+          color: $primary-color;
+        }
+
+        h3 {
+          margin: 0;
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $dark-color;
+        }
+      }
+
+      .chart-controls {
+        display: flex;
+        gap: 0.5rem;
+
+        .btn-control {
+          padding: 0.5rem 1rem;
+          border: 1px solid #e3e6f0;
+          background: white;
+          color: #6c757d;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+          cursor: pointer;
+
+          &:hover {
+            background: #f8f9fc;
+            border-color: $primary-color;
+            color: $primary-color;
+          }
+
+          &.active {
+            background: $primary-color;
+            border-color: $primary-color;
+            color: white;
+          }
+        }
+      }
+
+      .chart-legend {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        .legend-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.9rem;
+          color: #6c757d;
+
+          .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .chart-filters {
+        .filter-select {
+          padding: 0.5rem 1rem;
+          border: 1px solid #e3e6f0;
+          border-radius: 8px;
+          background: white;
+          color: #6c757d;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+          }
+        }
+      }
+    }
+
+    .chart-body {
+      padding: 1.5rem 2rem 2rem;
+      position: relative;
+
+      .chart-canvas {
+        max-height: 400px;
+      }
+    }
+  }
+}
+
+// Section des alertes
+.alerts-section {
+  margin-top: 3rem;
+  position: relative;
+  z-index: 2;
+
+  .alert-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    @include card-shadow;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    animation: slideInUp 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.25);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+
+    &.warning {
+      border-left: 4px solid $warning-color;
+
+      .alert-icon {
+        color: $warning-color;
+      }
+    }
+
+    &.success {
+      border-left: 4px solid $success-color;
+
+      .alert-icon {
+        color: $success-color;
+      }
+    }
+
+    &.info {
+      border-left: 4px solid $info-color;
+
+      .alert-icon {
+        color: $info-color;
+      }
+    }
+
+    .alert-icon {
+      font-size: 2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .alert-content {
+      flex: 1;
+
+      h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $dark-color;
+      }
+
+      p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .dashboard-title {
+    font-size: 2rem !important;
+
+    .title-icon {
+      font-size: 2.5rem !important;
+    }
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .chart-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// Animations d'entrée pour les éléments
+.metric-card {
+  animation-delay: calc(var(--i) * 0.1s);
+}
+
+.chart-card {
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+.alert-card {
+  animation-delay: calc(var(--i) * 0.1s);
+}
+
+// Effet de chargement
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+

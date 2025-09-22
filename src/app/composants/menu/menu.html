@@ -1,0 +1,61 @@
+<div class="modern-sidebar">
+  <div class="sidebar-header">
+    <div class="logo-container">
+      <div class="logo-icon">
+        <i class="fas fa-cubes"></i>
+      </div>
+      <div class="logo-text">
+        <h3>Gestion Stock</h3>
+        <span>By Wiame Jaoui</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    @for (menu of menuProperties; track menu.id) {
+      <div class="nav-item" [class.active]="menu.active">
+        <div class="nav-item-header" (click)="toggleMenu(menu)">
+          <div class="nav-item-icon">
+            <i class="{{menu.icon}}"></i>
+          </div>
+          <div class="nav-item-text">
+            <span>{{menu.titre}}</span>
+          </div>
+          <div class="nav-item-arrow" [class.rotated]="menu.active">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        
+        <div class="nav-submenu" [class.expanded]="menu.active">
+          @for (sousMenu of menu.sousMenu; track sousMenu.id) {
+            <div class="submenu-item" 
+                 [class.active]="sousMenu.active"
+                 (click)="navigate(sousMenu)">
+              <div class="submenu-icon">
+                <i class="{{sousMenu.icon}}"></i>
+              </div>
+              <div class="submenu-text">
+                <span>{{sousMenu.titre}}</span>
+              </div>
+              <div class="submenu-indicator" *ngIf="sousMenu.active">
+                <div class="indicator-dot"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="user-details">
+        <span class="user-name">Admin</span>
+        <span class="user-role">Administrateur</span>
+      </div>
+    </div>
+  </div>
+</div>

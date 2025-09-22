@@ -1,0 +1,58 @@
+<div class="modern-header">
+  <!-- Search Section -->
+  <div class="header-search">
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" 
+               class="search-input" 
+               placeholder="Rechercher des articles, clients, fournisseurs..." 
+               aria-label="Recherche">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Section -->
+  <div class="header-user">
+    <!-- Notifications -->
+    <div class="notification-bell">
+      <button class="notification-btn">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge">3</span>
+      </button>
+    </div>
+
+    <!-- User Profile -->
+    <div class="user-profile" *ngIf="connectedUser">
+      <div class="user-info">
+        <div class="user-greeting">
+          <span class="greeting-text">Bonjour,</span>
+          <span class="user-name">{{connectedUser.nom}} {{connectedUser.prenom}}</span>
+        </div>
+        <div class="user-role">
+          <span class="role-badge">Administrateur</span>
+        </div>
+      </div>
+      
+      <div class="user-avatar">
+        <a href="javascript:void(0);" [routerLink]="['profil']" class="avatar-link">
+          <div class="avatar-container">
+            <img src="favicon.ico" alt="Avatar" class="avatar-image" />
+            <div class="avatar-status online"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Login prompt if no user -->
+    <div class="login-prompt" *ngIf="!connectedUser">
+      <a href="javascript:void(0);" [routerLink]="['login']" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Se connecter</span>
+      </a>
+    </div>
+  </div>
+</div>

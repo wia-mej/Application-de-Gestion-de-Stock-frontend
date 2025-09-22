@@ -1,0 +1,58 @@
+<div class="row mb-1 mr-0 custom-border">
+  <div class="col-md-2 custom-border-right p-1 text-center mb-1 mt-1 bg-light ">
+    <img [src]="" width="100px" height="100px">
+  </div>
+
+<!--  Details article-->
+  <div class="col-md-4 custom-border-right mb-1 mt-1 p-2">
+    <div class="col-md-12">
+      <div class="row mb-2">
+        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
+        <div class="col-md-10">Nom</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
+        <div class="col-md-10">prenom</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-1"><i class="fas fa-phone-alt blue-color"></i></div>
+        <div class="col-md-10">06 66 88 99 33</div>
+      </div> 
+    </div>
+  </div>
+
+<!--  details commande-->
+  <div class="col-md-3 custom-border-right mb-1 mt-1 p-2">
+    <div class="col-md-12">
+      <div class="row mb-2">
+        <div class="col-md-1"><i class="fas  fa-qrcode blue-color"></i></div>
+        <div class="col-md-10">CODE</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-1"><i class="fas  fa-calendar-check blue-color"></i></div>
+        <div class="col-md-10">Date Commande</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-1"><i class="fas fa-cart-arrow-down blue-color"></i></div>
+        <div class="col-md-10">etat Commande</div>
+      </div> 
+    </div>
+  </div>
+
+<!--  boutons action-->
+  <div class="col-md-3 mb-1 mt-1"> 
+    <div class="row">
+      <div class="col-md-4 mb-1">
+        <button type="button" class="btn btn-link" (click)="modifierClick()">
+          <i class="fas fa-pencil-alt blue-color"></i><br><small>Modifier</small>
+        </button>
+      </div>
+       <div class="col-md-6 text-center">
+        <button type="button" class="btn btn-link">
+          <i class="fas fa-trash-alt blue-color"></i>&nbsp;
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
