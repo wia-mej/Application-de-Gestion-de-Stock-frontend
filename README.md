@@ -1,12 +1,11 @@
 # 🏪 Application de Gestion de Stock - Frontend
 
-Interface utilisateur Angular pour l'application de gestion de stock développée dans le cadre d'un stage.
+Interface utilisateur Angular pour l'application de gestion de stock développée dans le cadre du stage ouvrier.
 
 ## 📱 Technologies utilisées
 
-- **Angular** 15+ (ou votre version)
+- **Angular** 17
 - **TypeScript**
-- **Angular Material** (si utilisé)
 - **Bootstrap** (si utilisé)
 - **RxJS** pour la gestion des appels HTTP
 - **Angular Router** pour la navigation
@@ -21,9 +20,7 @@ src/
 │   ├── pages/              # Pages principales
 │   ├── services/           # Services Angular
 │   ├── models/             # Interfaces TypeScript
-│   ├── guards/             # Guards d'authentification
-│   ├── interceptors/       # Intercepteurs HTTP
-│   └── shared/             # Modules partagés
+│   └── interceptors/       # Intercepteurs HTTP
 ├── assets/                 # Images, styles, etc.
 └── environments/           # Configuration d'environnement
 ```
@@ -135,11 +132,7 @@ ng build --prod
 
 **Objectif** : Développer une application complète de gestion de stock pour une entreprise, avec une architecture moderne séparant frontend et backend.
 
-**Durée** : [Indiquez la durée de votre stage]
 
-## 🤝 Contribution
-
-Ce projet étant un projet de stage, les contributions sont actuellement fermées.
 
 ## 📄 License
 
@@ -147,4 +140,4 @@ Ce projet est développé dans un cadre éducatif.
 
 ---
 
-**Développé avec ❤️ par [Votre nom] dans le cadre d'un stage**
+**Développé avec ❤️ par Wiame Jaoui dans le cadre d'un stage**
