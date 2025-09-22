@@ -1,0 +1,175 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Mouvements du stock</h1>
+    </div>
+    <div class="col-md-4 p-0 text-end">
+      <app-boutton-action
+        [isImporterVisible]="false"
+        [isNouveauVisible]="false">
+      </app-boutton-action>
+    </div>
+  </div>
+
+  <!-- Affichage des erreurs -->
+  @if (errorMsg) {
+    <div class="row m-3">
+      <div class="col-12 alert alert-danger">
+        {{ errorMsg }}
+      </div>
+    </div>
+  }
+
+  <!-- Section de sélection de produit -->
+  <div class="row m-3">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-boxes"></i>&nbsp;Sélectionner un produit
+          </h5>
+        </div>
+        <div class="card-body">
+          @if (listProduits.length > 0) {
+            <div class="row">
+              @for (produit of listProduits; track trackByProduitId($index, produit)) {
+                <div class="col-md-3 mb-3">
+                  <div class="card h-100 product-card" 
+                       [class.selected]="selectedProduit?.id === produit.id"
+                       (click)="selectProduit(produit)">
+                    <div class="card-body text-center">
+                      <img [src]="produit.photo || 'assets/product.png'" 
+                           class="img-thumbnail mb-2" 
+                           style="width: 60px; height: 60px; object-fit: cover;"
+                           alt="Photo produit">
+                      <h6 class="card-title">{{ produit.designation }}</h6>
+                      <p class="card-text small text-muted">{{ produit.codeProduit }}</p>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="text-center p-4">
+              <p class="text-muted">Aucun produit disponible</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section des mouvements -->
+  @if (selectedProduit) {
+    <div class="row m-3">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="fas fa-chart-line"></i>&nbsp;Mouvements pour {{ selectedProduit.designation }}
+            </h5>
+            <button class="btn btn-sm btn-outline-primary" (click)="toggleCollapse(1)">
+              <i class="fas fa-eye" [class.fa-eye-slash]="isOpen1"></i>
+              {{ isOpen1 ? 'Masquer' : 'Afficher' }} les mouvements
+            </button>
+          </div>
+          @if (isOpen1) {
+            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+              @if (listMouvements.length > 0) {
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Source</th>
+                        <th>Quantité</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (mouvement of listMouvements; track trackByMouvementId($index, mouvement)) {
+                        <tr>
+                          <td>{{ mouvement.dateMvt | date:'dd/MM/yyyy HH:mm' }}</td>
+                          <td>
+                            <span class="badge" 
+                                  [class.bg-success]="mouvement.typeMvt === 'ENTREE' || mouvement.typeMvt === 'CORRECTION_POS'"
+                                  [class.bg-danger]="mouvement.typeMvt === 'SORTIE' || mouvement.typeMvt === 'CORRECTION_NEG'">
+                              {{ getTypeMouvementLabel(mouvement.typeMvt!) }}
+                            </span>
+                          </td>
+                          <td>{{ getSourceMouvementLabel(mouvement.sourceMvt!) }}</td>
+                          <td class="fw-bold" 
+                              [class.text-success]="mouvement.typeMvt === 'ENTREE' || mouvement.typeMvt === 'CORRECTION_POS'"
+                              [class.text-danger]="mouvement.typeMvt === 'SORTIE' || mouvement.typeMvt === 'CORRECTION_NEG'">
+                            {{ mouvement.quantite }}
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              } @else {
+                <div class="text-center p-4">
+                  <p class="text-muted">Aucun mouvement trouvé pour ce produit</p>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Section d'ajout de mouvement -->
+    <div class="row m-3">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <i class="fas fa-plus-circle"></i>&nbsp;Nouveau mouvement
+            </h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="typeMvt" class="form-label">Type de mouvement *</label>
+                  <select class="form-control" id="typeMvt" [(ngModel)]="nouveauMouvement.typeMvt" name="typeMvt">
+                    @for (type of typesMouvement; track type.value) {
+                      <option [value]="type.value">{{ type.label }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="sourceMvt" class="form-label">Source *</label>
+                  <select class="form-control" id="sourceMvt" [(ngModel)]="nouveauMouvement.sourceMvt" name="sourceMvt">
+                    @for (source of sourcesMouvement; track source.value) {
+                      <option [value]="source.value">{{ source.label }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="quantite" class="form-label">Quantité *</label>
+                  <input type="number" class="form-control" id="quantite" 
+                         [(ngModel)]="nouveauMouvement.quantite" name="quantite" 
+                         placeholder="Quantité" min="1" required>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                  <button type="button" class="btn btn-primary w-100" (click)="enregistrerMouvement()">
+                    <i class="fas fa-save"></i>&nbsp;Enregistrer
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Pagination -->
+  <div class="row mb-3">
+    <div class="col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>

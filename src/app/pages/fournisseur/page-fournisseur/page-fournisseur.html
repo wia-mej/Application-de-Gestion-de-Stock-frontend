@@ -1,0 +1,75 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Liste des fournisseurs</h1>
+    </div>
+    <div class="col-md-4 text-end">
+      <app-boutton-action
+        (clickEvent)="nouveauFournisseur()">
+      </app-boutton-action>
+    </div>
+  </div>
+
+  <!-- Affichage des erreurs -->
+  @if (errorMsg) {
+    <div class="row m-3">
+      <div class="col-12 alert alert-danger">
+        {{ errorMsg }}
+      </div>
+    </div>
+  }
+
+  <!-- Liste des fournisseurs -->
+  <div class="col m-3">
+    @for (fournisseur of listFournisseur; track trackByFournisseurId($index, fournisseur)) {
+      <div class="row custom-border mb-3 p-3">
+        <div class="col-md-2">
+          <img [src]="fournisseur.photo || 'assets/user.png'" 
+               class="img-thumbnail" 
+               style="width: 80px; height: 80px; object-fit: cover;"
+               alt="Photo fournisseur">
+        </div>
+        <div class="col-md-3">
+          <h6 class="mb-1">{{ fournisseur.nom }} {{ fournisseur.prenom }}</h6>
+          <small class="text-muted">Fournisseur</small>
+        </div>
+        <div class="col-md-3">
+          <p class="mb-1">{{ fournisseur.email }}</p>
+          <small class="text-muted">Email</small>
+        </div>
+        <div class="col-md-2">
+          <p class="mb-1">{{ fournisseur.telephone }}</p>
+          <small class="text-muted">Téléphone</small>
+        </div>
+        <div class="col-md-2">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-sm btn-outline-primary" 
+                    (click)="modifierFournisseur(fournisseur.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger" 
+                    (click)="supprimerFournisseur(fournisseur.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Message si aucun fournisseur -->
+    @if (listFournisseur.length === 0) {
+      <div class="row">
+        <div class="col-12 text-center p-4">
+          <p class="text-muted">Aucun fournisseur trouvé</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Pagination -->
+  <div class="row mb-3">
+    <div class="col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>

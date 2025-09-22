@@ -1,0 +1,75 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Liste des articles</h1>
+    </div>
+    <div class="col-md-4 text-end">
+      <app-boutton-action
+        (clickEvent)="nouvelArticle()">
+      </app-boutton-action>
+    </div>
+  </div>
+
+  <!-- Affichage des erreurs -->
+  @if (errorMsg) {
+    <div class="row m-3">
+      <div class="col-12 alert alert-danger">
+        {{ errorMsg }}
+      </div>
+    </div>
+  }
+
+  <!-- Liste des articles -->
+  <div class="col m-3">
+    @for (article of listArticle; track trackByArticleId($index, article)) {
+      <div class="row custom-border mb-3 p-3">
+      <div class="col-md-2">
+        <img [src]="article.photo || 'assets/product.png'" 
+             class="img-thumbnail" 
+             style="width: 80px; height: 80px; object-fit: cover;"
+             alt="Photo article">
+      </div>
+      <div class="col-md-3">
+        <strong>{{ article.codeProduit }}</strong><br>
+        <small class="text-muted">Code produit</small>
+      </div>
+      <div class="col-md-3">
+        {{ article.designation }}<br>
+        <small class="text-muted">Désignation</small>
+      </div>
+      <div class="col-md-2">
+        {{ article.prixUnitaire | currency:'EUR':'symbol':'1.2-2':'fr' }}<br>
+        <small class="text-muted">Prix HT</small>
+      </div>
+      <div class="col-md-2">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-sm btn-outline-primary" 
+                  (click)="modifierArticle(article.id)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-danger" 
+                  (click)="supprimerArticle(article.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Message si aucun article -->
+    @if (listArticle.length === 0) {
+      <div class="row">
+        <div class="col-12 text-center p-4">
+          <p class="text-muted">Aucun article trouvé</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Pagination -->
+  <div class="row mb-3">
+    <div class="col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>

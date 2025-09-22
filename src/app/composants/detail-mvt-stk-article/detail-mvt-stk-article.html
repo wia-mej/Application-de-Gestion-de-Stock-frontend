@@ -1,0 +1,99 @@
+<div class="row mb-1 mr-0 custom-border">
+  <div class="col-md-2 custom-border-right p-1 text-center mb-1 mt-1 bg-light ">
+    <img [src]="" width="100px" height="100px">
+  </div>
+
+<!--  Details article-->
+  <div class="col-md-4 custom-border-right mb-1 mt-1 ">
+    <div class="col">
+      <div class="row mb-1">
+        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
+        <div class="col-md-11">code Article</div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
+        <div class="col-md-11">designation</div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-md-1"><i class="fas fa-dollar-sign blue-color"></i></div>
+        <div class="col-md-11">prix Unitaire </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-md-1"><i class="fas fa-dollar-sign blue-color"></i></div>
+        <div class="col-md-11">prix Unitaire TTC</div>
+      </div>
+    </div>
+  </div>
+
+<!--  details categorie-->
+  <div class="col-md-3 custom-border-right mb-1 mt-1 p-2">
+    <div class="row">
+      <div class="col-md-2">
+        <i class="fab fa-dropbox blue-color"></i>
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Stock Actuel</h3>              
+            </div>
+          <div class="col-md-12">
+            <h3>139</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--  boutons action-->
+  <div class="col-md-3 mb-1 mt-1 p-2"> 
+    <div class="row">
+      <div class="col-md-4 mb-1">
+        <button type="button" class="btn btn-link" (click)="openDeleteModal()">
+          <i class="fab fa-stack-overflow"></i><br><small>Correction de Stock</small>
+        </button>
+      </div>
+    </div>
+  </div>
+ <!-- Modal -->
+<div class="modal d-block" tabindex="-1" *ngIf="showDeleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Correction de stock</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDeleteModal()"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Quantité">
+          </div>
+          <div class="mb-3">
+            <select class="form-select">
+              <option>Correction positive</option>
+              <option>Correction négative</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeDeleteModal()">
+          <i class="fas fa-ban"></i>&nbsp;Annuler
+        </button>
+        <button type="button" class="btn btn-primary">
+          <i class="fas fa-save"></i>&nbsp;Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="showDeleteModal"></div>
+
+</div>

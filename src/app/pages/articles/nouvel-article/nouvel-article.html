@@ -1,0 +1,139 @@
+<div class="col mb-3">
+  <!-- Section photo -->
+  <div class="col-md-12 mb-4 text-center">
+    <button (click)="fileInput.click()" class="photo-upload-btn" [disabled]="isLoading">
+      <img [src]="imgUrl" class="rounded-circle article-photo" />
+      <div class="photo-overlay">
+        <i class="fas fa-camera"></i>
+        <span>Changer la photo</span>
+      </div>
+    </button>
+    <input hidden type="file" #fileInput (change)="onFileInput($any($event.target).files)" accept="image/*">
+  </div>
+
+  <!-- Titre -->
+  <div class="col-md-12">
+    <div class="col-md-12 mb-3">
+      <h2>
+        <i class="fas fa-info-circle text-primary"></i>&nbsp;
+        {{ articleDto.id ? 'Modifier l\'article' : 'Information de l\'article' }}
+      </h2>
+    </div>
+
+    <!-- Affichage des erreurs -->
+    <div class="col-md-12" *ngIf="errorMsg.length > 0">
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <li *ngFor="let error of errorMsg">{{ error }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="col-md-12">
+      <form>
+        <div class="row p-3">
+          <div class="col-md-6">
+            <label for="codeProduit" class="form-label">Code article *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="codeProduit"
+              [(ngModel)]="articleDto.codeProduit" 
+              name="codeProduit" 
+              placeholder="Code article"
+              [disabled]="isLoading"
+              required>
+          </div>
+          <div class="col-md-6">
+            <label for="designation" class="form-label">Désignation *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="designation"
+              [(ngModel)]="articleDto.designation" 
+              name="designation" 
+              placeholder="Désignation"
+              [disabled]="isLoading"
+              required>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-md-6">
+            <label for="prixUnitaire" class="form-label">Prix unitaire HT</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="prixUnitaire"
+              [(ngModel)]="articleDto.prixUnitaire" 
+              name="prixUnitaire" 
+              placeholder="Prix unitaire HT"
+              [disabled]="isLoading"
+              (blur)="calculerTTC()">
+          </div>
+          <div class="col-md-6">
+            <label for="tauxTva" class="form-label">Taux TVA (%)</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="tauxTva"
+              [(ngModel)]="articleDto.tauxTva" 
+              name="tauxTva" 
+              placeholder="Taux TVA"
+              [disabled]="isLoading"
+              (blur)="calculerTTC()">
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-md-6">
+            <label for="prixTTC" class="form-label">Prix unitaire TTC</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="prixTTC"
+              [(ngModel)]="articleDto.prixTTC" 
+              name="prixTTC" 
+              placeholder="Prix unitaire TTC"
+              [disabled]="isLoading"
+              readonly>
+          </div>
+          <div class="col-md-6">
+            <label for="category" class="form-label">Catégorie</label>
+            <select 
+              class="form-control" 
+              id="category"
+              [(ngModel)]="categorieDto" 
+              name="category"
+              [disabled]="isLoading">
+              <option [ngValue]="null">Sélectionner une catégorie</option>
+              <option 
+                *ngFor="let cat of listeCategorie; trackBy: trackByCategoryId" 
+                [ngValue]="cat">
+                {{ cat.designation }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Boutons d'action -->
+  <div class="col-md-12 p-3 text-end">
+    <button 
+      class="btn btn-danger me-3" 
+      (click)="cancel()" 
+      [disabled]="isLoading">
+      <i class="fas fa-ban"></i>&nbsp;
+      Annuler
+    </button>
+    <button 
+      class="btn btn-primary" 
+      (click)="enregistrerArticle()" 
+      [disabled]="isLoading">
+      <i class="fas fa-save" *ngIf="!isLoading"></i>
+      <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+      &nbsp;{{ isLoading ? 'Enregistrement...' : (articleDto.id ? 'Modifier' : 'Enregistrer') }}
+    </button>
+  </div>
+</div>

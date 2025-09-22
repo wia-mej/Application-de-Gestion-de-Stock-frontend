@@ -1,0 +1,414 @@
+// Variables de couleurs
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$accent-color: #f093fb;
+$success-color: #4facfe;
+$warning-color: #43e97b;
+$danger-color: #fa709a;
+$dark-color: #2c3e50;
+$light-color: #f8f9fa;
+$white: #ffffff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+@mixin gradient-bg($color1, $color2, $direction: 135deg) {
+  background: linear-gradient($direction, $color1 0%, $color2 100%);
+}
+
+@mixin shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  } @else if $level == 4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
+
+// Animations
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+// Sidebar principal
+.modern-sidebar {
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  @include shadow(3);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+// Header du sidebar
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include transition();
+
+      i {
+        font-size: 1.5rem;
+        color: $white;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+      }
+    }
+
+    .logo-text {
+      h3 {
+        margin: 0;
+        color: $white;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+// Navigation
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;
+  position: relative;
+  z-index: 2;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+}
+
+// Items de navigation
+.nav-item {
+  margin: 0.5rem 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  @include transition();
+
+  &.active {
+    background: rgba(255, 255, 255, 0.15);
+    @include shadow(2);
+  }
+
+  .nav-item-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    @include transition();
+    position: relative;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      @include transition();
+
+      i {
+        font-size: 1.1rem;
+        color: $white;
+      }
+    }
+
+    .nav-item-text {
+      flex: 1;
+
+      span {
+        color: $white;
+        font-size: 1rem;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .nav-item-arrow {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include transition(transform, 0.3s, ease);
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+
+      i {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  // Sous-menu
+  .nav-submenu {
+    max-height: 0;
+    overflow: hidden;
+    @include transition(max-height, 0.3s, ease);
+
+    &.expanded {
+      max-height: 300px;
+      animation: slideDown 0.3s ease;
+    }
+
+    .submenu-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem 0.75rem 3rem;
+      cursor: pointer;
+      @include transition();
+      position: relative;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        background: rgba(255, 255, 255, 0.2);
+        border-left: 3px solid $white;
+
+        .submenu-text span {
+          color: $white;
+          font-weight: 600;
+        }
+
+        .submenu-icon i {
+          color: $white;
+        }
+      }
+
+      .submenu-icon {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+
+        i {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      .submenu-text {
+        flex: 1;
+
+        span {
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 0.9rem;
+          font-weight: 400;
+        }
+      }
+
+      .submenu-indicator {
+        .indicator-dot {
+          width: 8px;
+          height: 8px;
+          background: $white;
+          border-radius: 50%;
+          animation: pulse 2s ease-in-out infinite;
+        }
+      }
+    }
+  }
+}
+
+// Footer du sidebar
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    @include transition();
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        color: $white;
+        font-size: 1.1rem;
+      }
+    }
+
+    .user-details {
+      flex: 1;
+
+      .user-name {
+        display: block;
+        color: $white;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .user-role {
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .modern-sidebar {
+    width: 100%;
+    transform: translateX(-100%);
+    @include transition(transform, 0.3s, ease);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Effets de hover avancés
+.nav-item:hover {
+  .nav-item-icon {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+}
+
+.submenu-item:hover {
+  .submenu-icon i {
+    color: $white;
+    transform: scale(1.1);
+  }
+}
+
+// Animation d'entrée pour les éléments
+.nav-item {
+  animation: slideDown 0.5s ease-out;
+  animation-fill-mode: both;
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+}

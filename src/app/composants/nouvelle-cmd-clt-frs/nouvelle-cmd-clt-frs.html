@@ -1,0 +1,110 @@
+<div class="container mb-3">
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <h2 class="my-3">Nouvelle commande {{origin}}</h2>
+    </div>
+  </div>
+
+  <!-- Alert 
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger">
+        <span>msg</span>
+      </div>
+    </div>
+  </div>
+    -->
+  <!-- Form + infos client -->
+  <div class="row g-3 p-3 custom-border align-items-start">
+    <div class="col-md-5 border-end">
+      <form>
+        <div class="mb-3">
+          <input type="text" class="form-control" name="codeCmd" placeholder="Code commande">
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Date commande">
+          <!-- ou type="date" -->
+        </div>
+        <div class="mb-3">
+          <select class="form-select" name="cltFrs">
+            <option>Selectionner un article</option>
+            <option>Nom &nbsp;Prenom</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-5 border-end">
+      <div class="row gy-2">
+        <div class="col-1"><i class="fas fa-info-circle blue-color"></i></div>
+        <div class="col-11">Nom</div>
+
+        <div class="col-1"><i class="fas fa-info-circle blue-color"></i></div>
+        <div class="col-11">Prenom</div>
+
+        <div class="col-1"><i class="fas fa-phone-alt blue-color"></i></div>
+        <div class="col-11">Numero de telephone</div>
+
+        <div class="col-1"><i class="fas fa-hourglass-half blue-color"></i></div>
+        <div class="col-11 text-primary">EN PREPARATION</div>
+      </div>
+    </div>
+
+    <div class="col-md-2 text-center">
+      <img src=""
+           class="rounded-circle"
+           width="150" height="150"
+           alt="Photo client/fournisseur">
+    </div>
+  </div>
+
+  <!-- Ligne commande -->
+  <div class="row mt-2 p-3 custom-border">
+    <div class="col-12">
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Code article">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Quantite">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" placeholder="Prix unitaire">
+        </div>
+        <div class="col-md-1">
+          <button type="button" class="btn btn-success">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste commandes -->
+  <div class="row mt-2 p-3 custom-border" style="max-height:300px; overflow-y:auto;">
+    <div class="col-12">
+      <app-detail-cmd></app-detail-cmd>
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div class="row mt-2 p-3 custom-border">
+    <div class="col-12 text-end">
+      <h3>Total de la commande: 5</h3>
+    </div>
+  </div>
+
+  <!-- Boutons -->
+  <div class="row mt-2">
+    <div class="col-12 text-end">
+      <button class="btn btn-danger me-3">
+        <i class="fas fa-ban"></i>&nbsp;Annuler
+      </button>
+      <button class="btn btn-primary">
+        <i class="fas fa-save"></i>&nbsp;Enregistrer
+      </button>
+    </div>
+  </div>
+
+</div>
